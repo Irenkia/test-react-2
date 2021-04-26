@@ -1,55 +1,43 @@
-import React from 'react';
-//import ReactDOM from 'react-dom';
-import Typography from '@material-ui/core/Typography';
-import TodoForm from './components/TodoForm';
-import TodoList from './components/TodoList';
-import useTodoState from './components/useTodoState';
-import './styles/App.css';
+import React, { useState } from 'react';
+//import data from "./components/data.json";
+import Data from "./components/Data.js";
+import Header from "./components/Header";
+import ToDoList from "./components/ToDoList";
+import ToDoForm from './components/ToDoForm';
+//import Edit from './components/Edit';
 
+function App() {
 
-const App = () => {
-  const { todos, addTodo, deleteTodo } = useTodoState([]);
+    const [toDoList, setToDoList] = useState(Data);
 
-  return (
-    <div className="App">
-      <Typography component="h1" variant="h2">
-        Todos
-      </Typography>
+    const handleToggle = (id) => {
+        let mapped = toDoList.map(task => {
+            return task.id === Number(id) ? { ...task, complete: !task.complete } : { ...task };
+        });
+        setToDoList(mapped);
+    }
 
-      <TodoForm
-        saveTodo={todoText => {
-          const trimmedText = todoText.trim();
+    const handleFilter = () => {
+        let filtered = toDoList.filter(task => {
+            return !task.complete;
+        });
+        setToDoList(filtered);
+    }
 
-          if (trimmedText.length > 0) {
-            addTodo(trimmedText);
-          }
-        }}
-      />
+    const addTask = (userInput) => {
+        let copy = [...toDoList];
+        copy = [...copy, { id: toDoList.length + 1, task: userInput, complete: false }];
+        setToDoList(copy);
+    }
 
-      <TodoList todos={todos} deleteTodo={deleteTodo} />
-    </div>
-  );
-};
-
-// function App() {
-//   return (
-//     <div className="App">
-//       <header className="App-header">
-//         <img src={logo} className="App-logo" alt="logo" />
-//         <p>
-//           Edit <code>src/App.js</code> and save to reload.
-//         </p>
-//         <a
-//           className="App-link"
-//           href="https://reactjs.org"
-//           target="_blank"
-//           rel="noopener noreferrer"
-//         >
-//           Learn React
-//         </a>
-//       </header>
-//     </div>
-//   );
-// }
+    return (
+        <div className="App">
+            <Header />
+            <ToDoList toDoList={toDoList} handleToggle={handleToggle} handleFilter={handleFilter} />
+            {/* <Edit /> */}
+            <ToDoForm addTask={addTask} />
+        </div>
+    );
+}
 
 export default App;

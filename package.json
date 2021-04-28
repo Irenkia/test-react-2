@@ -1,0 +1,19 @@
+{
+  "name": "test-react-2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Irenkia/test-react-2.git"
+  },
+  "author": "Iryna Tiutiun",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Irenkia/test-react-2/issues"
+  },
+  "homepage": "https://github.com/Irenkia/test-react-2#readme"
+}
